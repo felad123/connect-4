@@ -1,5 +1,6 @@
 var board = [];
 var move = 0;
+var movecount = 0;
 function newGame() {
   board = [];
   for (i = 1; i < 50; i++) {
@@ -43,14 +44,17 @@ function gameEnd() {
   if (sameC>=4) {
     return true;
   }
+  return false
 }
-function testing1(){
-  for(i=0;i<49;i++){
-    if (i%7!=6 && i%2==0){
-      document.getElementById(String(i)).src = "https://i.imgur.com/lpCPbnt.png";
+function doMove() {
+  if (board[7*move+6]!=6) {
+    board[7*move+board[7*move+6]] = ["R","Y"][movecount%2]
+    console.log(String(7*move+board[7*move+6]))
+    document.getElementById(String(7*move+board[7*move+6])).src = ["https://i.imgur.com/lpCPbnt.png","https://i.imgur.com/km8rY9I.png"][movecount%2]
+    board[7*move+6]++
+    if (gameEnd) {
+      console.log(["R","Y"][(movecount)%2] + " won")
     }
-    if (i%7!=6 && i%2==1){
-      document.getElementById(String(i)).src = "https://i.imgur.com/km8rY9I.png";
-    }
+    movecount++
   }
 }
