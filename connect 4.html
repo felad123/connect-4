@@ -7,10 +7,82 @@
     <title>Document</title>
 </head>
 <body>
-    <img src="https://i.imgur.com/tAz99nT.png" alt="game board">
-    <img src="https://i.imgur.com/KW3Quiv.png" alt="red counter">
-    <img src="https://i.imgur.com/hly7Vjn.png" alt="yellow counter">
-    <button onclick="newGame()">new game pp</button>
+    <img src="https://i.imgur.com/aPGAmz4.png" alt="blank cell">
+    <img src="https://i.imgur.com/lpCPbnt.png" alt="red cell">
+    <img src="https://i.imgur.com/km8rY9I.png" alt="yellow cell">
+    <img src="https://i.imgur.com/OyC93RA.png" alt="blank blank">
+    <button onclick="newGame()">newGame()</button>
+    <textarea id="display"></textarea>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top0" onclick="move0()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top1" onclick="move1()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top2" onclick="move2()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top3" onclick="move3()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top4" onclick="move4()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top5" onclick="move5()">
+        <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top6" onclick="move6()">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="5">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="12">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="19">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="26">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="33">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="40">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="47">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="4">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="11">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="18">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="25">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="32">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="39">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="46">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="3">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="10">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="17">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="24">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="31">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="38">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="45">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="2">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="9">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="16">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="23">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="30">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="37">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="44">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="1">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="8">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="15">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="22">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="29">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="36">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="43">
+    </div>
+    <br>
+    <div>
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="0">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="7">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="14">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="21">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="28">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="35">
+        <img src="https://i.imgur.com/aPGAmz4.png" alt="cell" id="42">
+    </div>
 <script src="script.js"></script>
 </body>
 </html>

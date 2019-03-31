@@ -18,8 +18,8 @@ function gameEnd() {
       return true;
     }
   }
-  var i=move-1
-  var sameC=1
+  var i=move-1;
+  var sameC=1;
   //winning lines sideways
   while (i>=0) {
     if (board[7*i+board[7*move+6]-1]==board[7*move+board[7*move+6]-1]){
@@ -28,7 +28,7 @@ function gameEnd() {
     else {
       break;
     } 
-    i--
+    i--;
   }
   i=move+1
   while (i<=6) {
@@ -38,9 +38,19 @@ function gameEnd() {
     else {
       break;
     }
-    i++
+    i++;
   }
   if (sameC>=4) {
     return true;
+  }
+}
+function testing1(){
+  for(i=0;i<49;i++){
+    if (i%7!=6 && i%2==0){
+      document.getElementById(String(i)).src = "https://i.imgur.com/lpCPbnt.png";
+    }
+    if (i%7!=6 && i%2==1){
+      document.getElementById(String(i)).src = "https://i.imgur.com/km8rY9I.png";
+    }
   }
 }
