@@ -13,15 +13,27 @@ function newGame() {
     }
   }
 }
+function moveChoiceOn(i) {
+  document.getElementById("top"+String(i)).src = ["https://i.imgur.com/kNXDkDC.png","https://i.imgur.com/x9Ry5Ix.png"][movecount%2]
+}
+function moveChoiceOff(i) {
+  document.getElementById("top"+String(i)).src = "https://i.imgur.com/OyC93RA.png"
+}
 function gameState() {
+  var sameC=1;
   //winning lines downwards
   if (board[7*move+6]>=4) {
-    if (board[7*move+board[7*move+6]-1]==board[7*move+board[7*move+6]-2]==board[7*move+board[7*move+6]-3]==board[7*move+board[7*move+6]-4]) {
+    for (i=2;i<=4;i++) {
+      if (board[7*move+board[7*move+6]-1]==board[7*move+board[7*move+6]-i]) {
+        sameC++
+      }
+    }
+    if (sameC==4) {
       return "win"
     }
   }
   var i=move-1;
-  var sameC=1;
+  sameC=1;
   //winning lines sideways
   while (i>=0) {
     if (board[7*i+board[7*move+6]-1]==board[7*move+board[7*move+6]-1]){
