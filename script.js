@@ -9,14 +9,15 @@ function newGame() {
     } 
     else {
       board.push("E");
+      document.getElementById(String(i-1)).src = "https://i.imgur.com/aPGAmz4.png"
     }
   }
 }
-function gameEnd() {
+function gameState() {
   //winning lines downwards
   if (board[7*move+6]>=4) {
     if (board[7*move+board[7*move+6]-1]==board[7*move+board[7*move+6]-2]==board[7*move+board[7*move+6]-3]==board[7*move+board[7*move+6]-4]) {
-      return true;
+      return "win"
     }
   }
   var i=move-1;
@@ -42,19 +43,38 @@ function gameEnd() {
     i++;
   }
   if (sameC>=4) {
-    return true;
+    return "win"
   }
-  return false
+  return "nothing lol"
 }
 function doMove() {
   if (board[7*move+6]!=6) {
     board[7*move+board[7*move+6]] = ["R","Y"][movecount%2]
-    console.log(String(7*move+board[7*move+6]))
     document.getElementById(String(7*move+board[7*move+6])).src = ["https://i.imgur.com/lpCPbnt.png","https://i.imgur.com/km8rY9I.png"][movecount%2]
     board[7*move+6]++
-    if (gameEnd) {
+    console.log(gameState())
+    if (gameState()=="win") {
       console.log(["R","Y"][(movecount)%2] + " won")
     }
     movecount++
   }
 }
+
+
+
+function animationTest() {
+  var elem = document.getElementById("rCell");   
+  var pos = 0;
+  var id = setInterval(frame, 10);
+  function frame() {
+    if (pos == 50) {
+      clearInterval(id);
+    } else {
+      pos++; 
+      elem.style.top = pos + 'px'; 
+      elem.style.left = pos + 'px'; 
+    }
+  }
+}
+
+
