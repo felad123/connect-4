@@ -79,7 +79,7 @@ function animationTest() {
   var pos = 0;
   var id = setInterval(frame, 10);
   function frame() {
-    if (pos == 50) {
+    if (pos == 100) {
       clearInterval(id);
     } else {
       pos++; 
