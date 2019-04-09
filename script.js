@@ -57,14 +57,65 @@ function gameState() {
   if (sameC>=4) {
     return "win"
   }
-  return "nothing lol"
+  sameC=1 
+  //winning lines diagonal bottom left to top right
+  if (Math.min(move,board[7*move+6]-1)>=1) {
+    for (i=1;i<Math.min(move,board[7*move+6]-1)+1;i++) {
+      if (board[7*move+board[7*move+6]-1]==board[7*(move-i)+board[7*move+6]-1-i]) {
+        sameC+=1
+      }
+      else {
+        break
+      }
+    }
+  }
+  if (Math.min(6-move,6-board[7*move+6])>=1) {
+    for (i=1;i<Math.min(6-move,6-board[7*move+6])+1;i++) {
+      if (board[7*move+board[7*move+6]-1]==board[7*(move+i)+board[7*move+6]-1+i]) {
+        sameC+=1
+      }
+      else {
+        break
+      }
+    }
+  }
+  if (sameC>=4) {
+    return "win"
+  }
+  sameC=1
+  //winning lines diagonal bottom right to top left
+  if (Math.min(6-move,board[7*move+6]-1)>=1) {
+    for (i=1;i<Math.min(6-move,board[7*move+6])+1;i++) {
+      if (board[7*move+board[7*move+6]-1]==board[7*(move+i)+board[7*move+6]-1-i]) {
+        sameC+=1
+      }
+      else {
+        break
+      }
+    }
+  }
+  if (Math.min(move,6-board[7*move+6]-1)>=1) {
+    for (i=1;i<Math.min(move,6-board[7*move+6]-1)+1;i++) {
+      if (board[7*move+board[7*move+6]-1]==board[7*(move-i)+board[7*move+6]-1+i]) {
+        sameC+=1
+      }
+      else {
+        break
+      }
+    }
+  }
+  if (sameC>=4) {
+    return "win"
+  }
+  if (board.indexOf("E")==-1) {
+    return "draw"
+  }
 }
 function doMove() {
   if (board[7*move+6]!=6) {
     board[7*move+board[7*move+6]] = ["R","Y"][movecount%2]
     document.getElementById(String(7*move+board[7*move+6])).src = ["https://i.imgur.com/lpCPbnt.png","https://i.imgur.com/km8rY9I.png"][movecount%2]
     board[7*move+6]++
-    console.log(gameState())
     if (gameState()=="win") {
       console.log(["R","Y"][(movecount)%2] + " won")
     }
