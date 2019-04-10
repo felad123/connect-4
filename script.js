@@ -62,7 +62,7 @@ function gameState() {
   if (Math.min(move,board[7*move+6]-1)>=1) {
     for (i=1;i<Math.min(move,board[7*move+6]-1)+1;i++) {
       if (board[7*move+board[7*move+6]-1]==board[7*(move-i)+board[7*move+6]-1-i]) {
-        sameC+=1
+        sameC++
       }
       else {
         break
@@ -72,7 +72,7 @@ function gameState() {
   if (Math.min(6-move,6-board[7*move+6])>=1) {
     for (i=1;i<Math.min(6-move,6-board[7*move+6])+1;i++) {
       if (board[7*move+board[7*move+6]-1]==board[7*(move+i)+board[7*move+6]-1+i]) {
-        sameC+=1
+        sameC++
       }
       else {
         break
@@ -87,7 +87,7 @@ function gameState() {
   if (Math.min(6-move,board[7*move+6]-1)>=1) {
     for (i=1;i<Math.min(6-move,board[7*move+6])+1;i++) {
       if (board[7*move+board[7*move+6]-1]==board[7*(move+i)+board[7*move+6]-1-i]) {
-        sameC+=1
+        sameC++
       }
       else {
         break
@@ -97,7 +97,7 @@ function gameState() {
   if (Math.min(move,6-board[7*move+6]-1)>=1) {
     for (i=1;i<Math.min(move,6-board[7*move+6]-1)+1;i++) {
       if (board[7*move+board[7*move+6]-1]==board[7*(move-i)+board[7*move+6]-1+i]) {
-        sameC+=1
+        sameC++
       }
       else {
         break
@@ -120,6 +120,7 @@ function doMove() {
       console.log(["R","Y"][(movecount)%2] + " won")
     }
     movecount++
+    moveChoiceOn(move)
   }
 }
 
