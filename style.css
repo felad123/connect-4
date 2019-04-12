@@ -1,6 +1,13 @@
-#rCell {
-    position: relative;
+.animtest {
+    position: absolute;
+    z-index: 0;
 }
 .divcell {
     font-size: 0px;
+    text-align: center;
+    margin: auto;
+}
+.cell {
+    position: relative;
+    z-index: 1;
 }
