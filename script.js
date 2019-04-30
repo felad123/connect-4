@@ -1,8 +1,10 @@
 var board = [];
 var move = 0;
 var movecount = 0;
-var speed = 200;
+var speed = 3;
+var moveState = "";
 function newGame() {
+  moveState = "ready"
   movecount = 0;
   board = [];
   for (i = 1; i < 50; i++) {
@@ -16,7 +18,9 @@ function newGame() {
   }
 }
 function moveChoiceOn(i) {
-  document.getElementById("top"+String(i)).src = ["https://i.imgur.com/kNXDkDC.png","https://i.imgur.com/x9Ry5Ix.png"][movecount%2]
+  if (moveState == "ready") {
+    document.getElementById("top"+String(i)).src = ["https://i.imgur.com/kNXDkDC.png","https://i.imgur.com/x9Ry5Ix.png"][movecount%2]
+  }  
 }
 function moveChoiceOff(i) {
   document.getElementById("top"+String(i)).src = "https://i.imgur.com/OyC93RA.png"
@@ -114,37 +118,41 @@ function gameState() {
   }
 }
 function doMove(i) {
-  move = i;
-  if (board[7*move+6] != 6) {
-    animation()
-    setTimeout(showCell, 100000*((5-board[7*move+6])/speed))
-  function showCell() {
-    board[7*move+board[7*move+6]] = ["R","Y"][movecount%2]
-    document.getElementById(String(7*move+board[7*move+6])).src = ["https://i.imgur.com/lpCPbnt.png","https://i.imgur.com/km8rY9I.png"][movecount%2]
-    board[7*move+6]++
-    if (gameState() == "win") {
-      console.log(["R","Y"][(movecount)%2] + " won")
+  if (moveState == "ready") {
+    move = i;
+    if (board[7*move+6] != 6) {
+      moveState = "moving"
+      movecount++
+      moveChoiceOff(move)
+      animation()
     }
-    movecount++
-  }
   }
 }
-
-
+function showCell() {
+  board[7*move+board[7*move+6]] = ["Y","R"][movecount%2]
+  document.getElementById(String(7*move+board[7*move+6])).src = ["https://i.imgur.com/km8rY9I.png","https://i.imgur.com/lpCPbnt.png"][movecount%2]
+  board[7*move+6]++
+  if (gameState() == "win") {
+    console.log(["Y","R"][(movecount)%2] + " won")
+  }
+  moveState = "ready"
+  moveChoiceOn(move)
+}
 
 function animation() {
-  var elem = document.getElementById(["rMoving","yMoving"][movecount%2]);
+  var elem = document.getElementById(["yMoving","rMoving"][movecount%2]);
   elem.style.left = (document.getElementById("top0").getBoundingClientRect().left + 100*move + window.scrollX) + "px"
   var height = document.getElementById("top0").getBoundingClientRect().top + window.scrollY
   var i = 0;
-  var id = setInterval(frame, 1/speed);
+  var id = setInterval(frame, 1);
   function frame() {
     if (i >= 100*(6-board[7*move+6])) {
       clearInterval(id)
+      showCell()
     }
     else {
-      i++
-      height++
+      i += speed
+      height +=speed
       elem.style.top = height + "px"
     }
   }
