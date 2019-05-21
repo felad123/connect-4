@@ -3,6 +3,7 @@ var move = 0;
 var movecount = 0;
 var speed = 3.5;
 var moveState = "";
+
 function newGame() {
   moveState = "ready";
   movecount = 0;
@@ -19,12 +20,15 @@ function newGame() {
   document.getElementById("yMoving").style.visibility = "hidden";
   document.getElementById("rMoving").style.visibility = "hidden";
 }
+
 function moveChoiceOn(i) {
     document.getElementById("top" + String(i)).src = ["https://i.imgur.com/kNXDkDC.png","https://i.imgur.com/x9Ry5Ix.png"][movecount%2];
 }
+
 function moveChoiceOff(i) {
   document.getElementById("top" + String(i)).src = "https://i.imgur.com/OyC93RA.png";
 }
+
 function gameState() {
   var sameC = 1;
   //winning lines downwards
@@ -117,6 +121,7 @@ function gameState() {
     return "draw";
   }
 }
+
 function doMove(i) {
   if (moveState == "ready") {
     move = i;
@@ -128,6 +133,7 @@ function doMove(i) {
     }
   }
 }
+
 function showCell() {
   board[7*move + board[7*move + 6]] = ["Y","R"][movecount%2];
   document.getElementById(String(7*move + board[7*move + 6])).src = ["https://i.imgur.com/km8rY9I.png","https://i.imgur.com/lpCPbnt.png"][movecount%2];
@@ -136,6 +142,8 @@ function showCell() {
     console.log(["Y","R"][(movecount)%2] + " won");
   }
   moveState = "ready";
+  document.getElementById("yMoving").style.visibility = "hidden";
+  document.getElementById("rMoving").style.visibility = "hidden";
 }
 
 function animation() {

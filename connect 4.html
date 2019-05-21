@@ -7,16 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
     <script src="script.js"></script>
-    <img src="https://i.imgur.com/esKL89z.png" alt="blank cell">
-    <img src="https://i.imgur.com/lpCPbnt.png" alt="red cell">
-    <img src="https://i.imgur.com/km8rY9I.png" alt="yellow cell">
-    <img src="https://i.imgur.com/OyC93RA.png" alt="blank blank">
-    <img src="https://i.imgur.com/kNXDkDC.png" alt="blank red" class="animtest" id="rMoving">
-    <img src="https://i.imgur.com/x9Ry5Ix.png" alt="blank yellow" class="animtest" id="yMoving">
-    <button onclick="newGame()">newGame()</button>
+    <img src="https://i.imgur.com/esKL89z.png" alt="blank cell" style="display: none">
+    <img src="https://i.imgur.com/lpCPbnt.png" alt="red cell" style="display: none">
+    <img src="https://i.imgur.com/km8rY9I.png" alt="yellow cell" style="display: none">
+    <img src="https://i.imgur.com/OyC93RA.png" alt="blank blank" style="display: none">
+    <img src="https://i.imgur.com/kNXDkDC.png" alt="blank red" class="animtest" id="rMoving" style="visibility: hidden">
+    <img src="https://i.imgur.com/x9Ry5Ix.png" alt="blank yellow" class="animtest" id="yMoving" style="visibility: hidden">
+    <button onclick="newGame()" id="resetButton">START GAME</button>
     <br>
     <div class="divcell">
         <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top0" onclick="doMove(0)" onmouseover="moveChoiceOn(0)" onmouseout="moveChoiceOff(0)">
@@ -81,7 +80,5 @@
         <img src="https://i.imgur.com/esKL89z.png" alt="cell" class="cell" id="35">
         <img src="https://i.imgur.com/esKL89z.png" alt="cell" class="cell" id="42">
     </div>
-    <button id="test" onclick="animationTest()">test</button>
-
 </body>
 </html>
