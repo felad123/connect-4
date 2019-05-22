@@ -3,6 +3,22 @@ var move = 0;
 var movecount = 0;
 var speed = 3.5;
 var moveState = "";
+var p1name = "";
+var p2name = "";
+const redCell = "https://i.imgur.com/lpCPbnt.png";
+const yellowCell = "https://i.imgur.com/km8rY9I.png";
+const blankCell = "https://i.imgur.com/esKL89z.png";
+const blankMove = "https://i.imgur.com/OyC93RA.png";
+const redMove = "https://i.imgur.com/kNXDkDC.png";
+const yellowMove = "https://i.imgur.com/x9Ry5Ix.png";
+showPage(pSelect)
+function showPage(page) {
+  var pages = document.getElementsByClassName("pages");
+  for (i = 0; i < pages.length; i++) {
+    pages[i].style.display = "none";
+  }
+  page.style.display = "block";
+}
 
 function newGame() {
   moveState = "ready";
@@ -14,19 +30,20 @@ function newGame() {
     } 
     else {
       board.push("E");
-      document.getElementById(String(i - 1)).src = "https://i.imgur.com/esKL89z.png";
+      document.getElementById(String(i - 1)).src = blankCell;
     }
   }
   document.getElementById("yMoving").style.visibility = "hidden";
   document.getElementById("rMoving").style.visibility = "hidden";
+  win.value = ""
 }
 
 function moveChoiceOn(i) {
-    document.getElementById("top" + String(i)).src = ["https://i.imgur.com/kNXDkDC.png","https://i.imgur.com/x9Ry5Ix.png"][movecount%2];
+    document.getElementById("top" + String(i)).src = [redMove, yellowMove][movecount%2];
 }
 
 function moveChoiceOff(i) {
-  document.getElementById("top" + String(i)).src = "https://i.imgur.com/OyC93RA.png";
+  document.getElementById("top" + String(i)).src = blankMove;
 }
 
 function gameState() {
@@ -136,10 +153,13 @@ function doMove(i) {
 
 function showCell() {
   board[7*move + board[7*move + 6]] = ["Y","R"][movecount%2];
-  document.getElementById(String(7*move + board[7*move + 6])).src = ["https://i.imgur.com/km8rY9I.png","https://i.imgur.com/lpCPbnt.png"][movecount%2];
+  document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2];
   board[7*move + 6]++;
   if (gameState() == "win") {
-    console.log(["Y","R"][(movecount)%2] + " won");
+    win.value = [p2name, p1name][movecount%2] + " won"
+  }
+  if (gameState() == "draw") {
+    win.value = "its a draw oof"
   }
   moveState = "ready";
   document.getElementById("yMoving").style.visibility = "hidden";
