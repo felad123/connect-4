@@ -5,6 +5,7 @@ var speed = 3.5;
 var moveState = "";
 var p1name = "";
 var p2name = "";
+var players = [];
 const redCell = "https://i.imgur.com/lpCPbnt.png";
 const yellowCell = "https://i.imgur.com/km8rY9I.png";
 const blankCell = "https://i.imgur.com/esKL89z.png";
@@ -12,6 +13,7 @@ const blankMove = "https://i.imgur.com/OyC93RA.png";
 const redMove = "https://i.imgur.com/kNXDkDC.png";
 const yellowMove = "https://i.imgur.com/x9Ry5Ix.png";
 showPage(pSelect)
+
 function showPage(page) {
   var pages = document.getElementsByClassName("pages");
   for (i = 0; i < pages.length; i++) {
@@ -20,6 +22,28 @@ function showPage(page) {
   page.style.display = "block";
 }
 
+function setName() {
+  if (player1.value == "" || player2.value == "") {
+    errorName.innerHTML = "please put names for both players"
+  }
+  else {
+    if (player1.value == player2.value) {
+      errorName.innerHTML = "the names cannot be the same"
+    }
+    else {
+      p1name = player1.value;
+      p2name = player2.value;
+      if (!(p1name in players)) {
+        players.push({name: p1name, wins: 0, losses: 0, ties: 0});
+      }
+      if (!(p2name in players)) {
+        players.push({name: p2name, wins: 0, losses: 0, ties: 0});
+      }
+      showPage(connect4);
+      newGame()
+    }
+  }
+}
 function newGame() {
   moveState = "ready";
   movecount = 0;
@@ -35,7 +59,7 @@ function newGame() {
   }
   document.getElementById("yMoving").style.visibility = "hidden";
   document.getElementById("rMoving").style.visibility = "hidden";
-  win.value = ""
+  win.innerHTML = ""
 }
 
 function moveChoiceOn(i) {
@@ -156,10 +180,23 @@ function showCell() {
   document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2];
   board[7*move + 6]++;
   if (gameState() == "win") {
-    win.value = [p2name, p1name][movecount%2] + " won"
+    win.innerHTML = [p2name, p1name][movecount%2] + " won against " + [p1name, p2name][movecount%2]
+    for (i = 0; i < players.length; i++) {
+      if (players[i].name == [p2name, p1name][movecount%2]) {
+        players[i].wins++
+      }
+      if (players[i].name == [p1name, p2name][movecount%2]) {
+        players[i].losses++
+      }
+    }
   }
   if (gameState() == "draw") {
-    win.value = "its a draw oof"
+    win.innerHTML = "its a draw oof"
+    for (i = 0; i < players.length; i++) {
+      if (players[i].name == p1name || players[i].name == p2name) {
+        players[i].ties ++
+      }
+    }
   }
   moveState = "ready";
   document.getElementById("yMoving").style.visibility = "hidden";
