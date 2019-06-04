@@ -26,3 +26,6 @@
     z-index: 0;
     position: relative;
 }
+#connect4 {
+    zoom: 70%;
+}

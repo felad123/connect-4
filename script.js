@@ -33,16 +33,25 @@ function setName() {
     else {
       p1name = player1.value;
       p2name = player2.value;
-      if (!(p1name in players)) {
+      if (!(checkExistingName(p1name, players))) {
         players.push({name: p1name, wins: 0, losses: 0, ties: 0});
       }
-      if (!(p2name in players)) {
+      if (!(checkExistingName(p2name, players))) {
         players.push({name: p2name, wins: 0, losses: 0, ties: 0});
       }
       showPage(connect4);
       newGame()
     }
   }
+}
+
+function checkExistingName(p1, allPlayers) {
+  for (i = 0; i < allPlayers.length; i++) {
+    if (p1 == allPlayers[i].name) {
+      return true;
+    }
+  }
+  return false;
 }
 function newGame() {
   moveState = "ready";
@@ -180,6 +189,7 @@ function showCell() {
   document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2];
   board[7*move + 6]++;
   if (gameState() == "win") {
+    showPage(winscreen)
     win.innerHTML = [p2name, p1name][movecount%2] + " won against " + [p1name, p2name][movecount%2]
     for (i = 0; i < players.length; i++) {
       if (players[i].name == [p2name, p1name][movecount%2]) {
@@ -191,6 +201,7 @@ function showCell() {
     }
   }
   if (gameState() == "draw") {
+    showPage(winscreen)
     win.innerHTML = "its a draw oof"
     for (i = 0; i < players.length; i++) {
       if (players[i].name == p1name || players[i].name == p2name) {
