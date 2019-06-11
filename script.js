@@ -1,7 +1,7 @@
 var board = [];
 var move = 0;
 var movecount = 0;
-var speed = 3.5;
+var speed = 4;
 var moveState = "";
 var p1name = "";
 var p2name = "";
@@ -45,15 +45,17 @@ function setName() {
   }
 }
 
-function checkExistingName(p1, allPlayers) {
+function checkExistingName(p, allPlayers) {
   for (i = 0; i < allPlayers.length; i++) {
-    if (p1 == allPlayers[i].name) {
+    if (p == allPlayers[i].name) {
       return true;
     }
   }
   return false;
 }
+
 function newGame() {
+  document.getElementById("continue").style.visibility = "hidden";
   moveState = "ready";
   movecount = 0;
   board = [];
@@ -72,7 +74,9 @@ function newGame() {
 }
 
 function moveChoiceOn(i) {
+  if (moveState == "ready" || moveState == "moving") {
     document.getElementById("top" + String(i)).src = [redMove, yellowMove][movecount%2];
+  }
 }
 
 function moveChoiceOff(i) {
@@ -188,8 +192,12 @@ function showCell() {
   board[7*move + board[7*move + 6]] = ["Y","R"][movecount%2];
   document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2];
   board[7*move + 6]++;
+  moveState = "ready";
+  document.getElementById("yMoving").style.visibility = "hidden";
+  document.getElementById("rMoving").style.visibility = "hidden";
   if (gameState() == "win") {
-    showPage(winscreen)
+    moveState = "finished"
+    document.getElementById("continue").style.visibility = "visible";
     win.innerHTML = [p2name, p1name][movecount%2] + " won against " + [p1name, p2name][movecount%2]
     for (i = 0; i < players.length; i++) {
       if (players[i].name == [p2name, p1name][movecount%2]) {
@@ -201,7 +209,8 @@ function showCell() {
     }
   }
   if (gameState() == "draw") {
-    showPage(winscreen)
+    moveState = "finished"
+    document.getElementById("continue").style.visibility = "visible";
     win.innerHTML = "its a draw oof"
     for (i = 0; i < players.length; i++) {
       if (players[i].name == p1name || players[i].name == p2name) {
@@ -209,9 +218,6 @@ function showCell() {
       }
     }
   }
-  moveState = "ready";
-  document.getElementById("yMoving").style.visibility = "hidden";
-  document.getElementById("rMoving").style.visibility = "hidden";
 }
 
 function animation() {
