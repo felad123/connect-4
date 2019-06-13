@@ -83,6 +83,21 @@ function moveChoiceOff(i) {
   document.getElementById("top" + String(i)).src = blankMove;
 }
 
+function showScores(){
+  var ratio = 0;
+  for (i = 1; i < leaderboard.rows.length; i++) {
+    leaderboard.deleteRow(-1)
+  }
+  for (i = 0; i < players.length; i++) {
+    var row = leaderboard.insertRow(-1)
+    row.insertCell(0).innerHTML = players[i].name
+    row.insertCell(1).innerHTML = players[i].wins
+    row.insertCell(2).innerHTML = players[i].losses
+    ratio = String((players[i].wins/(players[i].wins + players[i].losses))*100) + "%"
+    row.insertCell(3).innerHTML = ratio
+  }
+}
+
 function gameState() {
   var sameC = 1;
   //winning lines downwards

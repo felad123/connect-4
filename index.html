@@ -25,7 +25,7 @@
         <button onclick="newGame()" id="resetButton">RESET GAME</button>
         <button onclick="showPage(pSelect); newGame(); player1.value = ''; player2.value = ''; errorName.innerHTML = ''">return to name select</button>
         <p id="win"></p>
-        <button onclick="showPage(scores)" id="continue">continue</button>
+        <button onclick="showPage(scores); showScores();" id="continue">continue</button>
         <div class="movechoices">
             <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top0" onclick="doMove(0)" onmouseover="moveChoiceOn(0)" onmouseout="moveChoiceOff(0)">
             <img src="https://i.imgur.com/OyC93RA.png" alt="blank" id="top1" onclick="doMove(1)" onmouseover="moveChoiceOn(1)" onmouseout="moveChoiceOff(1)">
@@ -95,6 +95,14 @@
     <div id="scores" class="pages">
         <button onclick="showPage(pSelect); newGame(); player1.value = ''; player2.value = ''; errorName.innerHTML = ''">return to name select</button>
         <button onclick="showPage(connect4); newGame()" id="resetButton">new game</button>
+        <table id="leaderboard">
+            <tr>
+                <th>name</th>
+                <th>wins</th>
+                <th>losses</th>
+                <th>ratio</th>
+            </tr>
+        </table>
     </div>
     <script src="script.js"></script>
 </body>
