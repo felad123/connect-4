@@ -85,7 +85,7 @@ function moveChoiceOff(i) {
 
 function showScores(){
   var ratio = 0;
-  for (i = 1; i < leaderboard.rows.length; i++) {
+  while(leaderboard.rows.length > 1) {
     leaderboard.deleteRow(-1)
   }
   for (i = 0; i < players.length; i++) {
