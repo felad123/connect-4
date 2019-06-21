@@ -1,7 +1,7 @@
 var board = [];
 var move = 0;
 var movecount = 0;
-var speed = 4;
+var speed = 100;
 var moveState = "";
 var p1name = "";
 var p2name = "";
@@ -34,10 +34,10 @@ function setName() {
       p1name = player1.value;
       p2name = player2.value;
       if (!(checkExistingName(p1name, players))) {
-        players.push({name: p1name, wins: 0, losses: 0, ties: 0});
+        players.push({name: p1name, wins: 0, losses: 0, ties: 0, ratio: 0});
       }
       if (!(checkExistingName(p2name, players))) {
-        players.push({name: p2name, wins: 0, losses: 0, ties: 0});
+        players.push({name: p2name, wins: 0, losses: 0, ties: 0, ratio: 0});
       }
       showPage(connect4);
       newGame()
@@ -84,7 +84,6 @@ function moveChoiceOff(i) {
 }
 
 function showScores(){
-  var ratio = 0;
   while(leaderboard.rows.length > 1) {
     leaderboard.deleteRow(-1)
   }
@@ -92,12 +91,50 @@ function showScores(){
     var row = leaderboard.insertRow(-1)
     row.insertCell(0).innerHTML = players[i].name
     row.insertCell(1).innerHTML = players[i].wins
-    row.insertCell(2).innerHTML = players[i].losses
-    ratio = String((players[i].wins/(players[i].wins + players[i].losses))*100) + "%"
-    row.insertCell(3).innerHTML = ratio
+    row.insertCell(2).innerHTML = players[i].wins + players[i].losses + players[i].ties
+    row.insertCell(3).innerHTML = players[i].ratio + "%"
   }
 }
 
+function sortLeaderboard() {
+  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "number of wins") {
+    var max = 0;
+    var maxIndex = 0;
+    var temp = 0;
+    for (i = 0; i < players.length - 1; i++) {
+      max = players[i].wins;
+      maxIndex = i;
+      for (j = i; j < players.length; j++) {
+        if (players[j].wins > max) {
+          max = players[j].wins;
+          maxIndex = j;
+        }
+      }
+      temp = players[i];
+      players[i] = players[maxIndex];
+      players[maxIndex] = temp;
+    }
+  }
+  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "win ratio") {
+    var max = 0;
+    var maxIndex = 0;
+    var temp = 0;
+    for (i = 0; i < players.length - 1; i++) {
+      max = players[i].ratio;
+      maxIndex = i;
+      for (j = i; j < players.length; j++) {
+        if (players[j].ratio > max) {
+          max = players[j].ratio;
+          maxIndex = j;
+        }
+      }
+      temp = players[i];
+      players[i] = players[maxIndex];
+      players[maxIndex] = temp;
+    }
+  }
+  showScores()
+}
 function gameState() {
   var sameC = 1;
   //winning lines downwards
@@ -217,9 +254,11 @@ function showCell() {
     for (i = 0; i < players.length; i++) {
       if (players[i].name == [p2name, p1name][movecount%2]) {
         players[i].wins++
+        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100)
       }
       if (players[i].name == [p1name, p2name][movecount%2]) {
         players[i].losses++
+        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100)
       }
     }
   }
@@ -229,7 +268,8 @@ function showCell() {
     win.innerHTML = "its a draw oof"
     for (i = 0; i < players.length; i++) {
       if (players[i].name == p1name || players[i].name == p2name) {
-        players[i].ties ++
+        players[i].ties++
+        players[i].ratio = (players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100
       }
     }
   }
