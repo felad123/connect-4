@@ -1,7 +1,7 @@
 var board = [];
 var move = 0;
 var movecount = 0;
-var speed = 100;
+var speed = 5;
 var moveState = "";
 var p1name = "";
 var p2name = "";
@@ -12,7 +12,7 @@ const blankCell = "https://i.imgur.com/esKL89z.png";
 const blankMove = "https://i.imgur.com/OyC93RA.png";
 const redMove = "https://i.imgur.com/kNXDkDC.png";
 const yellowMove = "https://i.imgur.com/x9Ry5Ix.png";
-showPage(pSelect)
+showPage(pSelect);
 
 function showPage(page) {
   var pages = document.getElementsByClassName("pages");
@@ -24,11 +24,11 @@ function showPage(page) {
 
 function setName() {
   if (player1.value == "" || player2.value == "") {
-    errorName.innerHTML = "please put names for both players"
+    errorName.innerHTML = "please put names for both players";
   }
   else {
     if (player1.value == player2.value) {
-      errorName.innerHTML = "the names cannot be the same"
+      errorName.innerHTML = "the names cannot be the same";
     }
     else {
       p1name = player1.value;
@@ -40,7 +40,7 @@ function setName() {
         players.push({name: p2name, wins: 0, losses: 0, ties: 0, ratio: 0});
       }
       showPage(connect4);
-      newGame()
+      newGame();
     }
   }
 }
@@ -85,14 +85,14 @@ function moveChoiceOff(i) {
 
 function showScores(){
   while(leaderboard.rows.length > 1) {
-    leaderboard.deleteRow(-1)
+    leaderboard.deleteRow(-1);
   }
   for (i = 0; i < players.length; i++) {
-    var row = leaderboard.insertRow(-1)
-    row.insertCell(0).innerHTML = players[i].name
-    row.insertCell(1).innerHTML = players[i].wins
-    row.insertCell(2).innerHTML = players[i].wins + players[i].losses + players[i].ties
-    row.insertCell(3).innerHTML = players[i].ratio + "%"
+    var row = leaderboard.insertRow(-1);
+    row.insertCell(0).innerHTML = players[i].name;
+    row.insertCell(1).innerHTML = players[i].wins;
+    row.insertCell(2).innerHTML = players[i].wins + players[i].losses + players[i].ties;
+    row.insertCell(3).innerHTML = players[i].ratio + "%";
   }
 }
 
@@ -133,8 +133,9 @@ function sortLeaderboard() {
       players[maxIndex] = temp;
     }
   }
-  showScores()
+  showScores();
 }
+
 function gameState() {
   var sameC = 1;
   //winning lines downwards
@@ -248,28 +249,28 @@ function showCell() {
   document.getElementById("yMoving").style.visibility = "hidden";
   document.getElementById("rMoving").style.visibility = "hidden";
   if (gameState() == "win") {
-    moveState = "finished"
+    moveState = "finished";
     document.getElementById("continue").style.visibility = "visible";
     win.innerHTML = [p2name, p1name][movecount%2] + " won against " + [p1name, p2name][movecount%2]
     for (i = 0; i < players.length; i++) {
       if (players[i].name == [p2name, p1name][movecount%2]) {
-        players[i].wins++
-        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100)
+        players[i].wins++;
+        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100);
       }
       if (players[i].name == [p1name, p2name][movecount%2]) {
-        players[i].losses++
-        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100)
+        players[i].losses++;
+        players[i].ratio = Math.round((players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100);
       }
     }
   }
   if (gameState() == "draw") {
-    moveState = "finished"
+    moveState = "finished";
     document.getElementById("continue").style.visibility = "visible";
-    win.innerHTML = "its a draw oof"
+    win.innerHTML = "its a draw oof";
     for (i = 0; i < players.length; i++) {
       if (players[i].name == p1name || players[i].name == p2name) {
-        players[i].ties++
-        players[i].ratio = (players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100
+        players[i].ties++;
+        players[i].ratio = (players[i].wins/(players[i].wins + players[i].losses + players[i].ties))*100;
       }
     }
   }
