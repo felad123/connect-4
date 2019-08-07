@@ -1,11 +1,17 @@
-var board = [];
+var board = []; /*array containing the board; 
+indexes [7i] to [7i+5] contain the 6 counters, from bottom to top, in column i
+index [7i+6] contains the current number of counters in column i,
+this makes it easier to determine the height at which the next counter must go to in column i */
 var move = 0;
-var movecount = 0;
-var speed = 5;
-var moveState = "";
+var movecount = 0; //increments with each move
+var speed = 5; //how fast the animation goes
+var moveState = ""; /*one of 3 values: "ready", "moving", "finished" 
+"ready" means that it is ready to do the next player move
+"moving" means that counters are moving right now
+"finished" means that the game is over, both in a win or a tie */
 var p1name = "";
 var p2name = "";
-var players = [];
+var players = []; //array of objects with player names and stats
 const redCell = "https://i.imgur.com/lpCPbnt.png";
 const yellowCell = "https://i.imgur.com/km8rY9I.png";
 const blankCell = "https://i.imgur.com/esKL89z.png";
@@ -14,7 +20,7 @@ const redMove = "https://i.imgur.com/kNXDkDC.png";
 const yellowMove = "https://i.imgur.com/x9Ry5Ix.png";
 showPage(pSelect);
 
-function showPage(page) {
+function showPage(page) { //page selector
   var pages = document.getElementsByClassName("pages");
   for (i = 0; i < pages.length; i++) {
     pages[i].style.display = "none";
@@ -23,20 +29,20 @@ function showPage(page) {
 }
 
 function setName() {
-  if (player1.value == "" || player2.value == "") {
+  if (player1.value == "" || player2.value == "") { //check for bad names
     errorName.innerHTML = "please put names for both players";
   }
   else {
-    if (player1.value == player2.value) {
+    if (player1.value == player2.value) { //check for bad names
       errorName.innerHTML = "the names cannot be the same";
     }
     else {
       p1name = player1.value;
       p2name = player2.value;
-      if (!(checkExistingName(p1name, players))) {
+      if (!(checkExistingName(p1name, players))) { //check for existing name
         players.push({name: p1name, wins: 0, losses: 0, ties: 0, ratio: 0});
       }
-      if (!(checkExistingName(p2name, players))) {
+      if (!(checkExistingName(p2name, players))) { //check for existing name
         players.push({name: p2name, wins: 0, losses: 0, ties: 0, ratio: 0});
       }
       showPage(connect4);
@@ -45,7 +51,7 @@ function setName() {
   }
 }
 
-function checkExistingName(p, allPlayers) {
+function checkExistingName(p, allPlayers) { //check for existing name
   for (i = 0; i < allPlayers.length; i++) {
     if (p == allPlayers[i].name) {
       return true;
@@ -67,27 +73,27 @@ function newGame() {
       board.push("E");
       document.getElementById(String(i - 1)).src = blankCell;
     }
-  }
+  } //sets up empty board and resets some other stuff
   document.getElementById("yMoving").style.visibility = "hidden";
-  document.getElementById("rMoving").style.visibility = "hidden";
-  win.innerHTML = ""
+  document.getElementById("rMoving").style.visibility = "hidden"; //hides the images used to animate the counter
+  win.innerHTML = "" //hides win message
 }
 
-function moveChoiceOn(i) {
-  if (moveState == "ready" || moveState == "moving") {
+function moveChoiceOn(i) { //shows indicator counter at the top of the column the mouse is near
+  if (moveState == "ready" || moveState == "moving") { //only shows when the game is not finished
     document.getElementById("top" + String(i)).src = [redMove, yellowMove][movecount%2];
   }
 }
 
-function moveChoiceOff(i) {
+function moveChoiceOff(i) { //hides indicator counter when the mouse is away
   document.getElementById("top" + String(i)).src = blankMove;
 }
 
-function showScores(){
-  while(leaderboard.rows.length > 1) {
+function showScores() {
+  while(leaderboard.rows.length > 1) { //removes scoreboard
     leaderboard.deleteRow(-1);
   }
-  for (i = 0; i < players.length; i++) {
+  for (i = 0; i < players.length; i++) { //updates scoreboard with new values
     var row = leaderboard.insertRow(-1);
     row.insertCell(0).innerHTML = players[i].name;
     row.insertCell(1).innerHTML = players[i].wins;
@@ -96,7 +102,7 @@ function showScores(){
   }
 }
 
-function sortLeaderboard() {
+function sortLeaderboard() { //sorts leaderboard on 1 of 2 variables, selection sort
   if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "number of wins") {
     var max = 0;
     var maxIndex = 0;
@@ -136,7 +142,7 @@ function sortLeaderboard() {
   showScores();
 }
 
-function gameState() {
+function gameState() { //determines whether the game is finished or not
   var sameC = 1;
   //winning lines downwards
   if (board[7*move + 6] >= 4) {
@@ -224,31 +230,31 @@ function gameState() {
   if (sameC >= 4) {
     return "win";
   }
-  if (board.indexOf("E") == -1) {
+  if (board.indexOf("E") == -1) { //if board contains no empty cells, and no winning line exists, then it's a draw
     return "draw";
   }
 }
 
-function doMove(i) {
-  if (moveState == "ready") {
+function doMove(i) { //places counter in column i
+  if (moveState == "ready") { //if a counter is moving while this function is triggered, it will not place another counter
     move = i;
     if (board[7*move + 6] != 6) {
       moveState = "moving";
       movecount++;
       moveChoiceOn(move);
-      animation();
+      animation(); //triggers animation of the counter falling
     }
   }
 }
 
-function showCell() {
-  board[7*move + board[7*move + 6]] = ["Y","R"][movecount%2];
-  document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2];
+function showCell() { //shows the counter in the cell and hides the image doing the animation
+  board[7*move + board[7*move + 6]] = ["Y","R"][movecount%2]; //determines colour of the new counter based on movecount
+  document.getElementById(String(7*move + board[7*move + 6])).src = [yellowCell, redCell][movecount%2]; //updates cell image
   board[7*move + 6]++;
-  moveState = "ready";
+  moveState = "ready"; //ready for the next move
   document.getElementById("yMoving").style.visibility = "hidden";
-  document.getElementById("rMoving").style.visibility = "hidden";
-  if (gameState() == "win") {
+  document.getElementById("rMoving").style.visibility = "hidden"; //hides animation image
+  if (gameState() == "win") { //update player stats on player win
     moveState = "finished";
     document.getElementById("continue").style.visibility = "visible";
     win.innerHTML = [p2name, p1name][movecount%2] + " won against " + [p1name, p2name][movecount%2]
@@ -263,7 +269,7 @@ function showCell() {
       }
     }
   }
-  if (gameState() == "draw") {
+  if (gameState() == "draw") { //update player stats on draw
     moveState = "finished";
     document.getElementById("continue").style.visibility = "visible";
     win.innerHTML = "its a draw oof";
@@ -284,9 +290,9 @@ function animation() {
   var i = 0;
   var id = setInterval(frame, 1);
   function frame() {
-    if (i >= 100 * (6 - board[7*move + 6])) {
+    if (i >= 100 * (6 - board[7*move + 6])) { //controls how far the counter falls
       clearInterval(id);
-      showCell();
+      showCell(); //shows the counter in the cell and hides the image doing the animation
     }
     else {
       i += speed;
