@@ -29,6 +29,10 @@ function showPage(page) { //page selector
 }
 
 function setName() {
+  players = JSON.parse(localStorage.getItem("players"))
+  if (players == null) {
+    players = []
+  }
   if (player1.value == "" || player2.value == "") { //check for bad names
     errorName.innerHTML = "please put names for both players";
   }
@@ -49,6 +53,7 @@ function setName() {
       newGame();
     }
   }
+  localStorage.setItem("players", JSON.stringify(players))
 }
 
 function checkExistingName(p, allPlayers) { //check for existing name
@@ -280,6 +285,7 @@ function showCell() { //shows the counter in the cell and hides the image doing 
       }
     }
   }
+  localStorage.setItem("players", JSON.stringify(players))
 }
 
 function animation() {
