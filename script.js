@@ -293,15 +293,15 @@ function animation() {
   var height = document.getElementById("top0").getBoundingClientRect().top + window.scrollY;
   elem.style.left = (document.getElementById("top0").getBoundingClientRect().left + 100*move + window.scrollX) + "px";
   document.getElementById(["yMoving", "rMoving"][movecount%2]).style.visibility = "visible";
-  var i = 0;
+  var k = 0;
   var id = setInterval(frame, 1);
   function frame() {
-    if (i >= 100 * (6 - board[7*move + 6])) { //controls how far the counter falls
+    if (k >= 100 * (6 - board[7*move + 6])) { //controls how far the counter falls
       clearInterval(id);
       showCell(); //shows the counter in the cell and hides the image doing the animation
     }
     else {
-      i += speed;
+      k += speed;
       height += speed;
       elem.style.top = height + "px";
     }
