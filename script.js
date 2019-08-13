@@ -108,7 +108,7 @@ function showScores() {
 }
 
 function sortLeaderboard() { //sorts leaderboard on 1 of 2 variables, selection sort
-  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "number of wins") {
+  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "by number of wins") {
     var max = 0;
     var maxIndex = 0;
     var temp = 0;
@@ -126,7 +126,7 @@ function sortLeaderboard() { //sorts leaderboard on 1 of 2 variables, selection 
       players[maxIndex] = temp;
     }
   }
-  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "win ratio") {
+  if (leaderboardSort.options[leaderboardSort.selectedIndex].text == "by win ratio") {
     var max = 0;
     var maxIndex = 0;
     var temp = 0;
@@ -295,6 +295,8 @@ function animation() {
   document.getElementById(["yMoving", "rMoving"][movecount%2]).style.visibility = "visible";
   var k = 0;
   var id = setInterval(frame, 1);
+  console.log(elem)
+  console.log(typeof(elem))
   function frame() {
     if (k >= 100 * (6 - board[7*move + 6])) { //controls how far the counter falls
       clearInterval(id);
